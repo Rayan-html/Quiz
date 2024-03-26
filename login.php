@@ -28,6 +28,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         die("Connection failed: " . $conn->connect_error);
     }
 
+//    // New code
+//    public $date;
+//    public $userid;
+
+//    //function save()
+//    {
+//        //send command to DB to save
+//        global $db;
+//        if ($this->id == null)
+//            //nieuw
+//            $db->prepare()
+//                }
+//                else{
+//                    //niet nieuw
+//    }
+
     // Prepare the query to fetch the hashed password
     $stmt = $conn->prepare("SELECT password FROM users WHERE username = ?");
     if (!$stmt) {
@@ -66,6 +82,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->close();
     $conn->close();
 }
+
+
+
+class YourClassName { // Make sure to replace YourClassName with the actual class name
+
+    public $date;
+    public $userid;
+    private $db;
+
+    function __construct($db) {
+        $this->db = $db;
+    }
+
+    function save() {
+        if ($this->userid && $this->date) {
+            // Assuming you have a table named 'your_table_name' and columns 'date' and 'userid'
+            $sql = "INSERT INTO your_table_name (date, userid) VALUES (?, ?)";
+            $stmt = $this->db->prepare($sql);
+            $stmt->bind_param("si", $this->date, $this->userid); // Assuming userid is an integer, change 'i' to 's' if it's a string
+            $stmt->execute();
+            $stmt->close();
+            return true;
+        } else {
+            return false; // Data incomplete, unable to save
+        }
+    }
+}
+
+// Example usage:
+// Assuming you have a $db object representing your database connection
+$db = new mysqli("localhost", "username", "password", "database_name");
+$data = new YourClassName($db);
+$data->date = "2024-03-25"; // Set your date
+$data->userid = 123; // Set your userid
+if ($data->save()) {
+    echo "Data saved successfully!";
+} else {
+    echo "Failed to save data. Make sure all required fields are filled.";
+}
+?>
 ?>
 
 <!DOCTYPE html>
@@ -105,3 +161,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </div>
 </body>
 </html>
+
+
