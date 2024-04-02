@@ -92,3 +92,26 @@ body {
 .form-container button[type="submit"]:hover {
     background-color: #33CC11;
 }
+
+button {
+    text-align: center;
+}
+
+button, .register-button {
+    background-color: #333; /* Dark background */
+    border: none;
+    color: #fff; /* White text */
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px; /* Rounded corners */
+    transition: background-color 0.3s ease; /* Smooth transition on hover */
+}
+
+button:hover, .register-button:hover {
+    background-color: #111444; /* Darker background on hover */
+}

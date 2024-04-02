@@ -10,7 +10,7 @@ session_start();
 </head>
 <body>
 <div class="container">
-    <h1 class="title">TECHNIEKMARKT</h1>
+    <h1 class="title">Geeky Leeswinkel</h1>
     <nav class="navbar">
         <ul>
             <li><a href="boeken.php">Boeken</a></li>
