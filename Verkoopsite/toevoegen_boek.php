@@ -5,15 +5,6 @@ session_start();
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-// Include de Gebruiker klasse
-
-
-// Controleer of de gebruiker is ingelogd
-if (!isset($_SESSION["gebruiker"])) {
-    header("Location: inloggen.php");
-    exit();
-}
-
 // Include de db_connect.php bestand
 include_once "db_connect.php";
 
@@ -21,6 +12,13 @@ $error = "";
 
 // Controleer of het formulier is ingediend
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Controleer of de gebruiker is ingelogd
+    if (!isset($_SESSION["gebruiker"])) {
+        // Stuur de gebruiker door naar de inlogpagina als deze niet is ingelogd
+        header("Location: inloggen.php");
+        exit();
+    }
+
     // Haal de gebruikersgegevens op uit de sessie
     $gebruiker = $_SESSION["gebruiker"];
     // Haal de gebruikers-ID op via de methode getId van de Gebruiker klasse
@@ -38,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("isssd", $gebruikers_id, $titel, $auteur, $beschrijving, $prijs);
     if ($stmt->execute()) {
         // Als het toevoegen succesvol is, stuur de gebruiker door naar een succespagina of ergens anders
-        header("Location: success.php");
+        header("Location: boeken_verkoop.php");
         exit();
     } else {
         // Als er een fout optreedt, toon een foutmelding
@@ -62,7 +60,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
 
 <nav>
-    <!-- Navigatiebalk code -->
+    <ul>
+        <li><a href="index.php">Home</a></li>
+        <li><a href="boeken_verkoop.php">Boeken</a></li>
+        <li><a href="laptop_verkoop.php">Laptops</a></li>
+        <li><a href="about.php">Over Ons</a></li>
+        <li><a href="contact.php">Contact</a></li>
+        <?php if (isset($_SESSION["gebruiker"])) { ?>
+            <li style="float:right"><a href="?logout=1">Uitloggen</a></li>
+        <?php } else { ?>
+            <li style="float:right"><a href="inloggen.php">Inloggen</a></li>
+            <li style="float:right"><a href="registreren.php">Registreren</a></li>
+        <?php } ?>
+    </ul>
+    <?php if (isset($_SESSION["gebruiker"])) { ?>
+        <div>Welkom, <?php echo $_SESSION["gebruiker"]->getGebruikersnaam(); ?></div>
+    <?php } ?>
 </nav>
 
 <main>

@@ -1,5 +1,5 @@
 <?php
-include_once "gebruiker.php";
+include_once "Gebruiker.php";
 session_start();
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
@@ -9,6 +9,16 @@ if (!isset($_SESSION["gebruiker"])) {
     header("Location: inloggen.php");
     exit();
 }
+
+// Include het db_connect.php bestand
+include_once "db_connect.php";
+
+// Haal alle laptops op uit de database
+$query = "SELECT * FROM laptops";
+$result = $conn->query($query);
+
+// Sluit de database verbinding
+$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -21,7 +31,19 @@ if (!isset($_SESSION["gebruiker"])) {
 </head>
 <body>
 
-<?php include_once "navbar.php"; ?>
+<nav>
+    <ul>
+        <li><a href="index.php">Home</a></li>
+        <li><a href="boeken_verkoop.php">Boeken</a></li>
+        <li><a href="laptop_verkoop.php">Laptops</a></li>
+        <li><a href="about.php">Over Ons</a></li>
+        <li><a href="contact.php">Contact</a></li>
+        <li style="float:right"><a href="uitloggen.php">Uitloggen</a></li>
+    </ul>
+    <?php if (isset($_SESSION["gebruiker"])) { ?>
+        <div>Welkom, <?php echo $_SESSION["gebruiker"]->getGebruikersnaam(); ?></div>
+    <?php } ?>
+</nav>
 
 <main>
     <h1>Geplaatste Laptops</h1>
@@ -34,13 +56,6 @@ if (!isset($_SESSION["gebruiker"])) {
             <th>Actie</th>
         </tr>
         <?php
-        // Include het db_connect.php bestand
-        include_once "db_connect.php";
-
-        // Haal alle laptops op uit de database
-        $query = "SELECT * FROM laptops";
-        $result = $conn->query($query);
-
         // Loop door de resultaten en toon ze in een tabel
         while ($row = $result->fetch_assoc()) {
             ?>

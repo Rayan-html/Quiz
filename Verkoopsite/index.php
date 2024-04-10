@@ -1,6 +1,7 @@
 <?php
-// Start de sessie
+include_once "Gebruiker.php";
 session_start();
+
 
 // Controleer of de gebruiker op "Uitloggen" heeft geklikt
 if (isset($_GET['logout'])) {
@@ -10,13 +11,14 @@ if (isset($_GET['logout'])) {
     unset($_SESSION["gebruiker"]);
 }
 
-// Andere code gaat hier verder
-
 // Controleer of de gebruiker is ingelogd
-$gebruikersnaam = isset($_SESSION["gebruiker"]) ? $_SESSION["gebruiker"] : '';
+$gebruiker = isset($_SESSION["gebruiker"]) ? $_SESSION["gebruiker"] : null;
+
+// Haal de gebruikersnaam op, indien ingelogd
+$gebruikersnaam = $gebruiker ? $gebruiker->getGebruikersnaam() : '';
 
 // Inclusie van Gebruiker.php
-include_once "Gebruiker.php";
+
 ?>
 
 <!DOCTYPE html>
@@ -29,7 +31,25 @@ include_once "Gebruiker.php";
 </head>
 <body>
 
-<?php include_once "navbar.php"; ?>
+<nav>
+    <ul>
+        <li><a href="index.php">Home</a></li>
+        <li><a href="boeken_verkoop.php">Boeken</a></li>
+        <li><a href="laptop_verkoop.php">Laptops</a></li>
+        <li><a href="about.php">Over Ons</a></li>
+        <li><a href="contact.php">Contact</a></li>
+        <?php if (!empty($gebruikersnaam)) { ?>
+            <li style="float:right"><a href="?logout=1">Uitloggen</a></li>
+        <?php } else { ?>
+            <li style="float:right"><a href="inloggen.php">Inloggen</a></li>
+            <li style="float:right"><a href="registreren.php">Registreren</a></li>
+        <?php } ?>
+    </ul>
+    <?php if (!empty($gebruikersnaam)) { ?>
+        <div style="float:right;">Welkom, <?php echo $gebruikersnaam; ?></div>
+    <?php } ?>
+</nav>
+
 
 <main>
     <h1>Welkom <?php echo $gebruikersnaam ? $gebruikersnaam : "Gast"; ?>!</h1>

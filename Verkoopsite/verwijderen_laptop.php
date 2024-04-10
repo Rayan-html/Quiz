@@ -65,10 +65,28 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Laptop Verwijderen</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
-<?php include_once "navbar.php"; ?>
+<nav>
+    <ul>
+        <li><a href="index.php">Home</a></li>
+        <li><a href="boeken_verkoop.php">Boeken</a></li>
+        <li><a href="laptop_verkoop.php">Laptops</a></li>
+        <li><a href="about.php">Over Ons</a></li>
+        <li><a href="contact.php">Contact</a></li>
+        <?php if (!empty($gebruikersnaam)) { ?>
+            <li style="float:right"><a href="?logout=1">Uitloggen</a></li>
+        <?php } else { ?>
+            <li style="float:right"><a href="inloggen.php">Inloggen</a></li>
+            <li style="float:right"><a href="registreren.php">Registreren</a></li>
+        <?php } ?>
+    </ul>
+    <?php if (!empty($gebruikersnaam)) { ?>
+        <div>Welkom, <?php echo $gebruikersnaam; ?></div>
+    <?php } ?>
+</nav>
+
 
 <main>
     <h1>Laptop Verwijderen</h1>

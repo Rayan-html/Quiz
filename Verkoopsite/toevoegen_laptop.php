@@ -20,52 +20,47 @@ $error = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Haal de gebruikersgegevens op uit de sessie
     $gebruiker = $_SESSION["gebruiker"];
-    // Controleer of de gebruikersgegevens correct zijn opgeslagen
+
+    // Verkrijg de gebruikers-ID
     if (!$gebruiker instanceof Gebruiker || !$gebruiker->getId()) {
-        // Als de gebruikersgegevens niet correct zijn, doorsturen naar de inlogpagina
-        header("Location: inloggen.php");
-        exit();
-    }
-
-    // Haal de gebruikers-ID op via de methode getId van de Gebruiker klasse
-    $gebruikers_id = $gebruiker->getId();
-
-    // Haal de gegevens van het formulier op
-    $merk = $_POST["merk"] ?? '';
-    $model = $_POST["model"] ?? '';
-    $specificaties = $_POST["specificaties"] ?? '';
-    $prijs = $_POST["prijs"] ?? '';
-
-    // Controleer of alle vereiste velden zijn ingevuld
-    if (empty($merk) || empty($model) || empty($specificaties) || empty($prijs)) {
-        $error = "Alle velden moeten worden ingevuld.";
+        $error = "Er is een fout opgetreden met de gebruikersinformatie.";
     } else {
-        // Voeg de laptopgegevens toe aan de database
-        $query = "INSERT INTO laptops (gebruikers_id, merk, model, specificaties, prijs) VALUES (?, ?, ?, ?, ?)";
-        $stmt = $conn->prepare($query);
-        if (!$stmt) {
-            // Als er een fout optreedt bij het voorbereiden van de query, toon een foutmelding
-            $error = "Er is een fout opgetreden bij het voorbereiden van de query: " . $conn->error;
+        $gebruikers_id = $gebruiker->getId();
+
+        // Haal de gegevens van het formulier op en ontsnap aan schadelijke invoer
+        $merk = isset($_POST["merk"]) ? htmlspecialchars(trim($_POST["merk"])) : '';
+        $model = isset($_POST["model"]) ? htmlspecialchars(trim($_POST["model"])) : '';
+        $specificaties = isset($_POST["specificaties"]) ? htmlspecialchars(trim($_POST["specificaties"])) : '';
+        $prijs = isset($_POST["prijs"]) ? htmlspecialchars(trim($_POST["prijs"])) : '';
+
+        // Valideer de invoer - zorg ervoor dat verplichte velden zijn ingevuld
+        if (empty($merk) || empty($model) || empty($specificaties) || empty($prijs)) {
+            $error = "Alle velden moeten worden ingevuld.";
         } else {
-            // Bind de parameters aan de query
-            $stmt->bind_param("isssd", $gebruikers_id, $merk, $model, $specificaties, $prijs);
-            if ($stmt->execute()) {
-                // Als het toevoegen succesvol is, stuur de gebruiker door naar een succespagina of ergens anders
-                header("Location: success.php");
-                exit();
+            // Voeg de laptopgegevens toe aan de database
+            $query = "INSERT INTO laptops (gebruikers_id, merk, model, specificaties, prijs) VALUES (?, ?, ?, ?, ?)";
+            $stmt = $conn->prepare($query);
+
+            if (!$stmt) {
+                $error = "Er is een fout opgetreden bij het voorbereiden van de query: " . $conn->error;
             } else {
-                // Als er een fout optreedt, toon een foutmelding
-                $error = "Er is een fout opgetreden bij het uitvoeren van de query: " . $stmt->error;
+                // Bind de parameters aan de query
+                $stmt->bind_param("isssd", $gebruikers_id, $merk, $model, $specificaties, $prijs);
+
+                if ($stmt->execute()) {
+                    header("Location: laptop_verkoop.php");
+                    exit();
+                } else {
+                    $error = "Er is een fout opgetreden bij het uitvoeren van de query: " . $stmt->error;
+                }
+
+                $stmt->close();
             }
         }
-
-        // Sluit de statement
-        $stmt->close();
     }
 }
 
-// Sluit de verbinding
-$conn->close();
+$conn->close(); // Sluit de database verbinding
 ?>
 
 <!DOCTYPE html>
@@ -77,25 +72,47 @@ $conn->close();
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
-<?php include_once "navbar.php"; ?>
+<nav>
+    <ul>
+        <li><a href="index.php">Home</a></li>
+        <li><a href="boeken_verkoop.php">Boeken</a></li>
+        <li><a href="laptop_verkoop.php">Laptops</a></li>
+        <li><a href="about.php">Over Ons</a></li>
+        <li><a href="contact.php">Contact</a></li>
+        <?php if (!empty($gebruikersnaam)) { ?>
+            <li style="float:right"><a href="?logout=1">Uitloggen</a></li>
+        <?php } else { ?>
+            <li style="float:right"><a href="inloggen.php">Inloggen</a></li>
+            <li style="float:right"><a href="registreren.php">Registreren</a></li>
+        <?php } ?>
+    </ul>
+    <?php if (!empty($gebruikersnaam)) { ?>
+        <div>Welkom, <?php echo $gebruikersnaam; ?></div>
+    <?php } ?>
+</nav>
 
 <main>
     <h1>Laptop Toevoegen</h1>
+
+    <?php if(!empty($error)) { ?>
+        <div class="error-message"><?php echo $error; ?></div>
+    <?php } ?>
+
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
         <label for="merk">Merk:</label>
         <input type="text" id="merk" name="merk" required><br><br>
+
         <label for="model">Model:</label>
         <input type="text" id="model" name="model" required><br><br>
+
         <label for="specificaties">Specificaties:</label>
         <textarea id="specificaties" name="specificaties" rows="4" cols="50" required></textarea><br><br>
+
         <label for="prijs">Prijs:</label>
         <input type="number" id="prijs" name="prijs" required><br><br>
+
         <input type="submit" value="Toevoegen">
     </form>
-    <?php if(!empty($error)) { ?>
-        <p><?php echo $error; ?></p>
-    <?php } ?>
 </main>
-
 </body>
 </html>

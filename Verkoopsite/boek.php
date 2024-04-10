@@ -1,5 +1,5 @@
 <?php
-// boek.php
+session_start();
 
 class Book {
     private $title;

@@ -1,11 +1,19 @@
 <?php
+session_start();
+include_once "Gebruiker.php"; // Voeg dit toe om de Gebruiker-klasse te includen
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
-session_start();
 
 include_once "db_connect.php";
 
 $error = ""; // Initieer de variabele voor foutmeldingen
+
+// Controleer of de gebruiker al ingelogd is
+if(isset($_SESSION["gebruiker"])) {
+    // Als de gebruiker al ingelogd is, kan hij doorgaan naar de laptop_verkoop.php pagina
+    header("Location: laptop_verkoop.php");
+    exit();
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Verkrijg gebruikersnaam en wachtwoord uit het formulier
@@ -26,8 +34,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Controleer of het ingevoerde wachtwoord overeenkomt met het gehashte wachtwoord in de database
         if (password_verify($wachtwoord, $row["wachtwoord"])) {
-            // Sla de gebruikersnaam op in de sessie in plaats van gebruiker_id
-            $_SESSION["gebruiker"] = $gebruikersnaam;
+            // Maak een nieuwe Gebruiker instantie aan
+            $gebruiker = new Gebruiker($row["id"], $row["gebruikersnaam"], $row["wachtwoord"], $row["email"], $row["adres"]);
+
+            // Sla de gebruiker op in de sessie
+            $_SESSION["gebruiker"] = $gebruiker;
+
+            // Stuur de gebruiker door naar de indexpagina
             header("Location: index.php");
             exit();
         } else {
@@ -52,8 +65,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="login.css">
 </head>
 <body>
+<nav>
+    <ul>
+        <li><a href="index.php">Home</a></li>
+        <li><a href="boeken_verkoop.php">Boeken</a></li>
+        <li><a href="laptop_verkoop.php">Laptops</a></li>
+        <li><a href="about.php">Over Ons</a></li>
+        <li><a href="contact.php">Contact</a></li>
+        <?php if (!isset($_SESSION["gebruiker"])) { ?>
+            <li style="float:right"><a href="inloggen.php">Inloggen</a></li>
+            <li style="float:right"><a href="registreren.php">Registreren</a></li>
+        <?php } ?>
+    </ul>
+    <?php if (isset($_SESSION["gebruiker"])) { ?>
+        <div>Welkom, <?php echo $_SESSION["gebruiker"]->getGebruikersnaam(); ?></div>
+    <?php } ?>
+</nav>
 
-<?php include_once "navbar.php"; ?>
 <main>
     <h1>Inloggen</h1>
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
