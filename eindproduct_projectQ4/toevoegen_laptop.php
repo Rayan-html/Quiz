@@ -63,7 +63,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 $conn->close(); // Sluit de database verbinding
 ?>
 
-
 <!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -73,25 +72,47 @@ $conn->close(); // Sluit de database verbinding
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
-<?php include_once "navbar.php"; ?>
+<nav>
+    <ul>
+        <li><a href="index.php">Home</a></li>
+        <li><a href="boeken_verkoop.php">Boeken</a></li>
+        <li><a href="laptop_verkoop.php">Laptops</a></li>
+        <li><a href="about.php">Over Ons</a></li>
+        <li><a href="contact.php">Contact</a></li>
+        <?php if (!empty($gebruikersnaam)) { ?>
+            <li style="float:right"><a href="?logout=1">Uitloggen</a></li>
+        <?php } else { ?>
+            <li style="float:right"><a href="inloggen.php">Inloggen</a></li>
+            <li style="float:right"><a href="registreren.php">Registreren</a></li>
+        <?php } ?>
+    </ul>
+    <?php if (!empty($gebruikersnaam)) { ?>
+        <div>Welkom, <?php echo $gebruikersnaam; ?></div>
+    <?php } ?>
+</nav>
 
 <main>
     <h1>Laptop Toevoegen</h1>
+
+    <?php if(!empty($error)) { ?>
+        <div class="error-message"><?php echo $error; ?></div>
+    <?php } ?>
+
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
         <label for="merk">Merk:</label>
         <input type="text" id="merk" name="merk" required><br><br>
+
         <label for="model">Model:</label>
         <input type="text" id="model" name="model" required><br><br>
+
         <label for="specificaties">Specificaties:</label>
         <textarea id="specificaties" name="specificaties" rows="4" cols="50" required></textarea><br><br>
+
         <label for="prijs">Prijs:</label>
         <input type="number" id="prijs" name="prijs" required><br><br>
+
         <input type="submit" value="Toevoegen">
     </form>
-    <?php if(!empty($error)) { ?>
-        <p><?php echo $error; ?></p>
-    <?php } ?>
 </main>
-
 </body>
 </html>
