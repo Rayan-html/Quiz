@@ -106,25 +106,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="registreren.css">
 </head>
 <body>
-<nav>
-    <ul>
-        <li><a href="index.php">Home</a></li>
-        <li><a href="boeken_verkoop.php">Boeken</a></li>
-        <li><a href="laptop_verkoop.php">Laptops</a></li>
-        <li><a href="about.php">Over Ons</a></li>
-        <li><a href="contact.php">Contact</a></li>
-        <?php if (!empty($gebruikersnaam)) { ?>
-            <li style="float:right"><a href="?logout=1">Uitloggen</a></li>
-        <?php } else { ?>
-            <li style="float:right"><a href="inloggen.php">Inloggen</a></li>
-            <li style="float:right"><a href="registreren.php">Registreren</a></li>
-        <?php } ?>
-    </ul>
-    <?php if (!empty($gebruikersnaam)) { ?>
-        <div>Welkom, <?php echo $gebruikersnaam; ?></div>
-    <?php } ?>
-</nav>
 
+<?php include_once "navbar.php"; ?>
 <main>
     <div class="login-box">
         <h2>Registreren</h2>
