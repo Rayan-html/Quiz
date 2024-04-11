@@ -31,7 +31,6 @@ $conn->close();
 </head>
 <body>
 
-<<<<<<< Updated upstream
 <nav>
     <ul>
         <li><a href="index.php">Home</a></li>
@@ -45,10 +44,6 @@ $conn->close();
         <div>Welkom, <?php echo $_SESSION["gebruiker"]->getGebruikersnaam(); ?></div>
     <?php } ?>
 </nav>
-=======
-<?php include_once "navbar.php";
-
->>>>>>> Stashed changes
 
 <main>
     <h1>Geplaatste Boeken</h1>
