@@ -1,0 +1,136 @@
+/* Reset default margin and padding */
+body, h1, h2, h3, p, ul, li {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto Mono', monospace;
+}
+
+/* Basic styles */
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+header {
+    background: linear-gradient(135deg, #03E5EA, #1C1C1C); /* Gradient background */
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+nav ul {
+    list-style-type: none;
+    text-align: center;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 20px; /* Increased spacing between nav items */
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #03E5EA; /* Hover color */
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #1c1c1c;
+    min-width: 160px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-content a {
+    color: #fff;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-content a:hover {
+    background-color: #03E5EA;
+}
+
+.banner {
+    background: linear-gradient(135deg, #03E5EA, #1C1C1C); /* Gradient background */
+    padding: 50px 0;
+}
+
+.banner h2 {
+    text-align: center;
+    color: #fff;
+}
+
+.story, .values, .team {
+    padding: 50px 0;
+}
+
+.values ul {
+    list-style-type: none;
+}
+
+.values ul li {
+    margin-bottom: 20px; /* Increased space between values */
+    padding-left: 30px; /* Increased padding for better alignment */
+    position: relative;
+}
+
+.values ul li:before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #03E5EA;
+}
+
+.team-members {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.team-member {
+    text-align: center;
+    margin: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    background: #fff; /* White background */
+}
+
+/* Light colors for team member names */
+.team-member h3 {
+    color: #1C1C1C; /* Light color for team member names */
+}
+
+.team-member p {
+    color: #666; /* Light color for team member roles */
+}
+
+.team-member img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+footer {
+    background: linear-gradient(135deg, #03E5EA, #1C1C1C); /* Gradient background */
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}

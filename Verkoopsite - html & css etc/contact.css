@@ -1,0 +1,95 @@
+body {
+  background-color: #1c1c1c;
+  height: 100vh;
+}
+
+.title {
+  text-decoration: none;
+  color: #fff;
+  font-size: 3em;
+  font-family: monospace;
+  font-weight: bolder;
+  letter-spacing: 5px;
+}
+
+#center {
+  display: flex;
+  justify-content: center;
+  margin-top: 5em;
+  margin-bottom: 5em;
+}
+
+body {
+  color: #fff;
+}
+
+.container {
+  box-shadow: 0 2px 8px #d8d4d4;
+  width: 400px;
+  border: solid #0aeac7;
+  margin: 0 auto;
+  padding: 1em 1.8em 1em 1em;
+}
+
+h2 {
+  margin-bottom: 1em;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+label {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 5px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.form-group textarea {
+  height: 100px;
+  
+}
+
+.form-group button {
+  padding: 10px 40px;
+  background-color: #1c1c1c;
+  border: solid;
+  border-color: #0aeac7;
+  color: #0aeac7;
+  cursor: pointer;
+}
+
+.new {
+  display: flex;
+  justify-content: center;
+}
+
+/* CSS code before media queries */
+/* Mobile styles */
+@media (max-width: 390px) {
+  body {
+    overflow-x: hidden; /* Hide horizontal scroll */
+  }
+  .container {
+    width: 100%; /* Make the container full width */
+    max-width: 100%; /* Ensure the container doesn't exceed the screen width */
+    margin: 0;
+    padding: 1em;
+  }
+}
+
+/*# sourceMappingURL=contact.css.map */
