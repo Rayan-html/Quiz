@@ -36,7 +36,7 @@ $gebruikersnaam = $gebruiker ? $gebruiker->getGebruikersnaam() : '';
         <li><a href="index.php">Home</a></li>
         <li><a href="boeken_verkoop.php">Boeken</a></li>
         <li><a href="laptop_verkoop.php">Laptops</a></li>
-        <li><a href="about_us.php">Over Ons</a></li>
+        <li><a href="over_ons.php">Over Ons</a></li>
         <li><a href="contact.php">Contact</a></li>
         <?php if (!empty($gebruikersnaam)) { ?>
             <li style="float:right"><a href="?logout=1">Uitloggen</a></li>

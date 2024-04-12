@@ -36,9 +36,9 @@ $conn->close();
         <li><a href="index.php">Home</a></li>
         <li><a href="boeken_verkoop.php">Boeken</a></li>
         <li><a href="laptop_verkoop.php">Laptops</a></li>
-        <li><a href="about.php">Over Ons</a></li>
+        <li><a href="over_ons.php">Over Ons</a></li>
         <li><a href="contact.php">Contact</a></li>
-        <li style="float:right"><a href="uitloggen.php">Uitloggen</a></li>
+        <li style="float:right"><a href="index.php">Uitloggen</a></li>
     </ul>
     <?php if (isset($_SESSION["gebruiker"])) { ?>
         <div>Welkom, <?php echo $_SESSION["gebruiker"]->getGebruikersnaam(); ?></div>
