@@ -1,4 +1,5 @@
 <?php
+//Sessie starte-->
 session_start();
 include_once "gebruiker.php";
 include_once "laptop.php";
