@@ -1,0 +1,137 @@
+body {
+    margin: 0;
+    padding-bottom: 100px;
+    position: relative;
+    overflow: hidden;
+}
+
+#navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #333;
+    padding: 10px 20px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 999;
+}
+
+#logonav img {
+    height: 80px;
+    width: auto;
+}
+
+#logoptions {
+    display: flex;
+    justify-content: center;
+}
+
+#navbar ul {
+    list-style-type: none;
+    margin-right: 30px;
+    margin-left: 20px;
+    padding: 0;
+    display: flex;
+}
+
+#navbar ul li {
+    margin-right: 20px;
+}
+
+#navbar ul li:last-child {
+    margin-right: 0;
+}
+
+#navbar ul li a {
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    color: #fff;
+}
+
+#navbar ul li.redc a {
+    color: red;
+}
+
+#navbar ul li.bluec a {
+    color: mediumturquoise;
+}
+
+#navbar ul li a:hover {
+    color: #ffd700;
+}
+
+.container {
+    width: 60%;
+    margin: 120px auto 50px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+form {
+    text-align: left;
+}
+
+label {
+    font-weight: bold;
+}
+
+input[type="text"],
+select,
+textarea,
+input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+textarea {
+    resize: vertical;
+}
+
+input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+.faq-container {
+    max-width: 800px;
+    margin: 120px auto 50px;
+    padding: 20px;
+    background-color: #5d5c5c;
+    border: solid 3px;
+    border-color: mediumturquoise;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.question {
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+.answer {
+    display: none;
+    padding-left: 20px;
+}
+.answer.show {
+    display: block;
+}

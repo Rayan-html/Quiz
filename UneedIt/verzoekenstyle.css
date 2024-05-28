@@ -1,0 +1,93 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+#navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #333;
+    padding: 10px 20px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+#logonav img {
+    height: 80px;
+}
+
+#logoptions ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+#logoptions ul li {
+    margin-right: 20px;
+}
+
+#logoptions ul li a {
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    color: #fff;
+}
+
+#logoptions ul li.redc a {
+    color: red;
+}
+
+#logoptions ul li.bluec a {
+    color: mediumturquoise;
+}
+
+#logoptions ul li a:hover {
+    color: #ffd700;
+}
+
+#logoptions ul li:last-child {
+    margin-right: 30px;
+}
+
+.request {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.requests-container {
+    margin-top: 120px;
+    padding: 20px;
+}
+
+.user-info {
+    margin-bottom: 20px;
+}
+
+.user-info h2 {
+    margin-bottom: 5px;
+}
+
+.user-info p {
+    margin-bottom: 5px;
+}
+
+.request-info {
+    margin-top: 15px;
+}
+
+.request-info p {
+    margin-bottom: 5px;
+}
+.Klantgegevens{
+    display: flex;
+}
+.Klantgegevens p {
+    margin-right: 25px;
+    display: flex;
+}
